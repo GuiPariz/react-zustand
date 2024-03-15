@@ -29,7 +29,7 @@ export default function Player() {
 
           </div>
 
-          <aside className="absolute top-0 bottom-0 right-0 w-80 border-l border-solid border-zinc-800 bg-zinc-900 overflow-y-scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
+          <aside className="absolute top-0 bottom-0 right-0 w-80 border-l border-solid border-zinc-800 bg-zinc-900  overflow-y-scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
 
             <Module title={"Fundamentos do Redux"} amounthOfLessons={3} moduleIndex={0} />
             <Module title={"Fundamentos do Redux"} amounthOfLessons={3} moduleIndex={1} />
