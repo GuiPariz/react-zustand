@@ -1,16 +1,23 @@
 import * as Collapsble from '@radix-ui/react-collapsible'
 import { ChevronDown } from "lucide-react";
 import Lesson from "./Lesson";
+import { useAppSelector } from '../store';
+import { useDispatch } from 'react-redux';
+import { play } from '../store/slices/player';
 
-interface ModuleProps{
-  title:string,
-  amounthOfLessons:number,
-  moduleIndex:number,
+interface ModuleProps {
+  title: string,
+  amounthOfLessons: number,
+  moduleIndex: number,
 }
 
-export default function Module(props:ModuleProps) {
+export default function Module(props: ModuleProps) {
 
-  const {title, amounthOfLessons,moduleIndex} = props
+  const { title, amounthOfLessons, moduleIndex } = props
+
+  const dispach = useDispatch()
+
+  const lessons = useAppSelector(state => state.player.course.modules[moduleIndex].lessons)
 
   return (
     <Collapsble.Root className='group' >
@@ -26,9 +33,17 @@ export default function Module(props:ModuleProps) {
       </Collapsble.Trigger>
 
       <Collapsble.Content className="relative flex flex-col">
-        <Lesson title={"Desvendando o Redux"} duration={"09:13"}/>
-        <Lesson title={"Desvendando denovo"} duration={"09:13"}/>
-        <Lesson title={"Desvendando mais uma vez"} duration={"09:13"}/>
+
+        {lessons.map((lesson, lessonIndex) => {
+          return (
+            <Lesson
+              onPlay={()=>dispach(play([moduleIndex, lessonIndex]))}
+              key={lesson.id}
+              title={lesson.title}
+              duration={lesson.duration}
+            />
+          )
+        })}
 
       </Collapsble.Content>
     </Collapsble.Root>

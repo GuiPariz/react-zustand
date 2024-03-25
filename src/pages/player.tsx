@@ -2,9 +2,14 @@ import { MessageCircle } from "lucide-react"
 import Header from "../components/Header"
 import Video from "../components/Video"
 import Module from "../components/Module"
+import { useAppSelector } from "../store"
 
 
 export default function Player() {
+
+  const module = useAppSelector(state=> state.player.course.modules) // uma boa pratica é retornar apenas uma informação,
+                                                                     // e o ideal é que seja a informação mais especifica possivel.
+
   return (
     <div className="h-screen bg-zinc-950 text-zinc-50 flex p-10 justify-center items-center ">
 
@@ -29,11 +34,18 @@ export default function Player() {
 
           </div>
 
-          <aside className="absolute top-0 bottom-0 right-0 w-80 border-l border-solid border-zinc-800 bg-zinc-900  overflow-y-scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
+          <aside 
+          className="absolute top-0 bottom-0 right-0 w-80 border-l border-solid border-zinc-800 bg-zinc-900  overflow-y-scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
 
-            <Module title={"Fundamentos do Redux"} amounthOfLessons={3} moduleIndex={0} />
-            <Module title={"Fundamentos do Redux"} amounthOfLessons={3} moduleIndex={1} />
-            <Module title={"Fundamentos do Redux"} amounthOfLessons={3} moduleIndex={2} />
+            {module.map((module, index)=>{
+              return(
+                <Module 
+                key={module.id}
+                title={module.title} 
+                amounthOfLessons={module.lessons.length} 
+                moduleIndex={index} />
+              )
+            })}
 
           </aside>
 
